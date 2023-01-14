@@ -4,8 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Shortcut icon -->
-    <link rel="shortcut icon" href="/assets/favicon.ico">
+    <!-- Shortcut icon  <link rel="shortcut icon" href="/assets/favicon.ico"> -->
     <!-- CSS -->
     <link rel="stylesheet" href="style.css">
     <!-- JS -->
@@ -14,41 +13,54 @@
 </head>
 <body>
 
-    <div class="view">
-        <div class="col col-1">
-            <div class="backdrop" id="music-pic"></div>
-            <!-- <img src="http://3.bp.blogspot.com/_CIp_Dw0TGGc/S7jH7CBgq7I/AAAAAAAAAaw/oQAnRBQ6uC8/s1600/Linkin_Park_-_Minutes_To_Midnight_-_Front.jpg" alt="Não foi possivel carregar a imagem..."> -->
-        </div>
-        <div class="col col-2"></div>
-    </div>
-    <div class="controllers">
-        <div class="volume--settings">
-            <div id="volume--item"></div>
-            <span class="set--vol" id="area--vol">
-                <input type="range" id="volume">
-            </span>
-        </div>
+    <!-- Gradient -->
+    <div class="gradient--vertical"></div>
+    <div class="gradient--horizontal"></div>
 
-        <div class="play--controls">
-            <!-- Previous -->
-            <svg id="btn--backward" viewBox="0 0 320 512"><!--! Font Awesome Pro 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M267.5 440.6c9.5 7.9 22.8 9.7 34.1 4.4s18.4-16.6 18.4-29V96c0-12.4-7.2-23.7-18.4-29s-24.5-3.6-34.1 4.4l-192 160L64 241V96c0-17.7-14.3-32-32-32S0 78.3 0 96V416c0 17.7 14.3 32 32 32s32-14.3 32-32V271l11.5 9.6 192 160z"/></svg>
-            <!-- Play -->
-            <span class="play" id="btn--play">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Pro 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M512 256c0 141.4-114.6 256-256 256S0 397.4 0 256S114.6 0 256 0S512 114.6 512 256zM188.3 147.1c-7.6 4.2-12.3 12.3-12.3 20.9V344c0 8.7 4.7 16.7 12.3 20.9s16.8 4.1 24.3-.5l144-88c7.1-4.4 11.5-12.1 11.5-20.5s-4.4-16.1-11.5-20.5l-144-88c-7.4-4.5-16.7-4.7-24.3-.5z"/></svg>
-            </span>
-            <span id="btn--pause">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Pro 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M256 512c141.4 0 256-114.6 256-256S397.4 0 256 0S0 114.6 0 256S114.6 512 256 512zM224 192V320c0 17.7-14.3 32-32 32s-32-14.3-32-32V192c0-17.7 14.3-32 32-32s32 14.3 32 32zm128 0V320c0 17.7-14.3 32-32 32s-32-14.3-32-32V192c0-17.7 14.3-32 32-32s32 14.3 32 32z"/></svg>
-            </span>
-            <!-- Next -->
-            <svg id="btn--forward" viewBox="0 0 320 512"><!--! Font Awesome Pro 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M52.5 440.6c-9.5 7.9-22.8 9.7-34.1 4.4S0 428.4 0 416V96C0 83.6 7.2 72.3 18.4 67s24.5-3.6 34.1 4.4l192 160L256 241V96c0-17.7 14.3-32 32-32s32 14.3 32 32V416c0 17.7-14.3 32-32 32s-32-14.3-32-32V271l-11.5 9.6-192 160z"/></svg>
-        </div>
+    <div class="container">
+        <div class="backdrop" id="music-pic"></div>
+        <!-- tools -->
+        <div class="toolbar">
+            <div class="area--controls">
+                <!-- VolumeControls -->
+                <div class="volume--settings">
+                    <div id="volume--item">A</div>
+                    <span class="set--vol" id="area--vol">
+                        <input type="range" id="volume">
+                    </span>
+                </div>
+                <!-- PlayerControls -->
+                <div class="play--controls">
+                    <!-- Previous -->
+                    <svg id="btn--backward" viewBox="0 0 320 512"><!--! Font Awesome Pro 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M267.5 440.6c9.5 7.9 22.8 9.7 34.1 4.4s18.4-16.6 18.4-29V96c0-12.4-7.2-23.7-18.4-29s-24.5-3.6-34.1 4.4l-192 160L64 241V96c0-17.7-14.3-32-32-32S0 78.3 0 96V416c0 17.7 14.3 32 32 32s32-14.3 32-32V271l11.5 9.6 192 160z"/></svg>
+                    <!-- Play -->
+                    <span id="btn--play">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Pro 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M512 256c0 141.4-114.6 256-256 256S0 397.4 0 256S114.6 0 256 0S512 114.6 512 256zM188.3 147.1c-7.6 4.2-12.3 12.3-12.3 20.9V344c0 8.7 4.7 16.7 12.3 20.9s16.8 4.1 24.3-.5l144-88c7.1-4.4 11.5-12.1 11.5-20.5s-4.4-16.1-11.5-20.5l-144-88c-7.4-4.5-16.7-4.7-24.3-.5z"/></svg>
+                    </span>
+                    <span id="btn--pause">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Pro 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M256 512c141.4 0 256-114.6 256-256S397.4 0 256 0S0 114.6 0 256S114.6 512 256 512zM224 192V320c0 17.7-14.3 32-32 32s-32-14.3-32-32V192c0-17.7 14.3-32 32-32s32 14.3 32 32zm128 0V320c0 17.7-14.3 32-32 32s-32-14.3-32-32V192c0-17.7 14.3-32 32-32s32 14.3 32 32z"/></svg>
+                    </span>
+                    <!-- Next -->
+                    <svg id="btn--forward" viewBox="0 0 320 512"><!--! Font Awesome Pro 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M52.5 440.6c-9.5 7.9-22.8 9.7-34.1 4.4S0 428.4 0 416V96C0 83.6 7.2 72.3 18.4 67s24.5-3.6 34.1 4.4l192 160L256 241V96c0-17.7 14.3-32 32-32s32 14.3 32 32V416c0 17.7-14.3 32-32 32s-32-14.3-32-32V271l-11.5 9.6-192 160z"/></svg>
+                </div>
 
-        <div class="time">
-            <div id="current">0:00</div>
-            <div id="duration">0:00</div>
+                <div class="xl--time">
+                    <div id="current--xl">0:00</div>
+                    <div id="duration--xl">0:00</div>
+                </div>
+            </div>
+            <div class="timeview">
+                <input type="range" id="currentTime">
+                <div class="time">
+                    <div id="current--ms">0:00</div>
+                    <div id="duration--ms">0:00</div>
+                </div>
+            </div>
+            <div class="info">
+                <h1 id="music--title">Nome da Música</h1>
+                <span id="music--artist">Artista</span>
+            </div>
         </div>
-
-        <input type="range" id="currentTime">
     </div>
 
     <!-- <audio id="music" controls></audio> -->

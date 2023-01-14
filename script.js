@@ -8,16 +8,29 @@ const backward = document.getElementById("btn--backward")
 const sound = document.getElementById("volume--item")
 const volume = document.getElementById("volume")
 
-const currentTime = document.getElementById("current")
-const DurationMusic = document.getElementById("duration")
+// data
+const currentTime = [
+    document.getElementById("current--ms"),
+    document.getElementById("current--xl")
+]
+const DurationMusic = [
+    document.getElementById("duration--ms"),
+    document.getElementById("duration--xl")
+]
+
+const title = document.getElementById("music--title")
+const artist = document.getElementById("music--artist")
 
 // Media
 let audio = document.getElementById("music")
+let img = document.getElementById("music-pic")
+
+const progressbar = document.getElementById("currentTime")
 
 const sounds = [
     {id:1, title:"What I've Done", author:"Linkin Park", media:"./assets/music/What Ive Done [Official Music Video] - Linkin Park.mp3", pic:"./assets/images/Linkin Park - What Ive Done.jpg"},
     {id:2, title:"Do I Wanna Know", author:"Arctic Monkeys", media:"./assets/music/Arctic Monkeys - Do I Wanna Know (Official Video).mp3", pic:"./assets/images/Artic Monkeys - Do I Wanna Know.jpg"},
-    {id:3, title:"Beat it", author:"The Neighbourhood", media:"./assets/music/Sweater Weather.mp3", pic:"./assets/images/Sweater Weather · The Neighbourhood.jpeg"}
+    {id:3, title:"Sweater Weather", author:"The Neighbourhood", media:"./assets/music/Sweater Weather.mp3", pic:"./assets/images/Sweater Weather · The Neighbourhood.jpeg"}
 ]
 
 const settings = [
@@ -26,17 +39,12 @@ const settings = [
     {title:"high", icon:'<svg viewBox="0 0 640 512"><path d="M533.6 32.5C598.5 85.3 640 165.8 640 256s-41.5 170.8-106.4 223.5c-10.3 8.4-25.4 6.8-33.8-3.5s-6.8-25.4 3.5-33.8C557.5 398.2 592 331.2 592 256s-34.5-142.2-88.7-186.3c-10.3-8.4-11.8-23.5-3.5-33.8s23.5-11.8 33.8-3.5zM473.1 107c43.2 35.2 70.9 88.9 70.9 149s-27.7 113.8-70.9 149c-10.3 8.4-25.4 6.8-33.8-3.5s-6.8-25.4 3.5-33.8C475.3 341.3 496 301.1 496 256s-20.7-85.3-53.2-111.8c-10.3-8.4-11.8-23.5-3.5-33.8s23.5-11.8 33.8-3.5zm-60.5 74.5C434.1 199.1 448 225.9 448 256s-13.9 56.9-35.4 74.5c-10.3 8.4-25.4 6.8-33.8-3.5s-6.8-25.4 3.5-33.8C393.1 284.4 400 271 400 256s-6.9-28.4-17.7-37.3c-10.3-8.4-11.8-23.5-3.5-33.8s23.5-11.8 33.8-3.5zM301.1 34.8C312.6 40 320 51.4 320 64V448c0 12.6-7.4 24-18.9 29.2s-25 3.1-34.4-5.3L131.8 352H64c-35.3 0-64-28.7-64-64V224c0-35.3 28.7-64 64-64h67.8L266.7 40.1c9.4-8.4 22.9-10.4 34.4-5.3z"/></svg>'}
 ]
 
-let value = 0;
-let img = document.getElementById("music-pic")
+// presets
+pause.style.display = 'none'
+let value = null;
 sound.innerHTML = settings[2].icon
-
-document.getElementById("area--vol").style.display = 'none'
-let x = false;
-
-sound.addEventListener("click", () => {
-    x = !x
-    x == true ? document.getElementById("area--vol").style.display = 'inherit' : document.getElementById("area--vol").style.display = 'none'
-})
+volume.value = 100
+progressbar.value = 100
 
 volume.addEventListener ("input", () => {
     // console.log(volume.value)
@@ -59,8 +67,12 @@ volume.addEventListener ("input", () => {
 function renderMedia (index) {
     audio.setAttribute('src', sounds[index].media)
 
-    // Get a durationSound
+    // Initialize appData
     audio.onloadeddata = () => {
+        title.textContent = sounds[value].title
+        artist.textContent = sounds[value].author
+
+        // Get a duration music
         // console.log("Duração: ", audio.duration)
         var duration = audio.duration
         
@@ -70,9 +82,11 @@ function renderMedia (index) {
         seconds = Math.floor(duration - (minutes * 60)) | 0
 
         if (seconds <= 0) {
-            DurationMusic.textContent = minutes + ':' + seconds + '0'
+            DurationMusic[0].textContent = minutes + ':' + seconds + '0'
+            DurationMusic[1].textContent = minutes + ':' + seconds + '0'
         } else {
-            DurationMusic.textContent = minutes + ':' + seconds
+            DurationMusic[0].textContent = minutes + ':' + seconds
+            DurationMusic[1].textContent = minutes + ':' + seconds
         }
 
         // console.log("Duração: ", minutes + ':' + seconds)
@@ -111,7 +125,7 @@ function handleBackSong () {
 // Play Music
 function handlePlaySong () {
     play.style.display = 'none'
-    pause.style.display = 'inherit'
+    pause.style.display = 'block'
 
     // audio.src = sounds[value].media
     renderMedia(value)
@@ -122,7 +136,7 @@ function handlePlaySong () {
 // Pause Music
 function handlePauseSong () {
     pause.style.display = 'none'
-    play.style.display = 'inherit'
+    play.style.display = 'block'
 
     audio.src = sounds[value].media
     audio.pause()

@@ -25,6 +25,9 @@ const artist = document.getElementById("music--artist")
 let audio = document.getElementById("music")
 let img = document.getElementById("music-pic")
 
+// Timeline
+var duration = 0;
+let current_duration = 0
 const progressbar = document.getElementById("currentTime")
 
 const sounds = [
@@ -74,9 +77,9 @@ function renderMedia (index) {
 
         // Get a duration music
         // console.log("Duração: ", audio.duration)
-        var duration = audio.duration
+        duration = audio.duration
         
-        let hour, minutes, seconds; // declare values
+        let minutes, seconds; // declare values
 
         minutes = Math.floor(duration / 60) | 0
         seconds = Math.floor(duration - (minutes * 60)) | 0
@@ -88,12 +91,12 @@ function renderMedia (index) {
             DurationMusic[0].textContent = minutes + ':' + seconds
             DurationMusic[1].textContent = minutes + ':' + seconds
         }
-
-        // console.log("Duração: ", minutes + ':' + seconds)
     }
 }
 
 function handleSkipSong () {
+    current_duration = 0
+
     for (let i = 0; i < sounds.length; i++) {
         value += 1
 
@@ -109,6 +112,8 @@ function handleSkipSong () {
 }
 
 function handleBackSong () {
+    current_duration = 0
+
     for (let i = 0; i < sounds.length; i--) {
         value -= 1
 
@@ -123,7 +128,10 @@ function handleBackSong () {
 }
 
 // Play Music
+let track_audio = 0;
+
 function handlePlaySong () {
+    track_audio = current_duration;
     play.style.display = 'none'
     pause.style.display = 'block'
 
@@ -131,15 +139,18 @@ function handlePlaySong () {
     renderMedia(value)
     img.style.backgroundImage = `url('${sounds[value].pic}')`
     audio.play()
+    audio.currentTime = track_audio
 }
 
 // Pause Music
 function handlePauseSong () {
+    track_audio = current_duration;
     pause.style.display = 'none'
     play.style.display = 'block'
 
     audio.src = sounds[value].media
     audio.pause()
+    audio.currentTime = track_audio
 }
 
 // Play Songs
@@ -148,3 +159,36 @@ pause.addEventListener("click", handlePauseSong)
 
 backward.addEventListener("click", handleBackSong)
 forward.addEventListener("click", handleSkipSong)
+
+progressbar.addEventListener("change", (e) => {
+    let status, result
+
+    status = e.target.value || null
+    if (status == null) window.alert("Aperte para começar!")
+
+    result = duration * status/100
+    audio.currentTime = result;
+    // console.log(`Você está em: ${result} da música.`)
+})
+
+audio.addEventListener('timeupdate', () => {
+    let status
+    current_duration = audio.currentTime
+    status = current_duration * 100 / duration
+    progressbar.value = status
+
+    let minutes, seconds
+
+    minutes = Math.floor(current_duration / 60) | 0
+    seconds = Math.floor(current_duration - (minutes * 60)) | 0
+
+    if (seconds < 10) {
+        currentTime[0].textContent = minutes + ':' + '0' + seconds
+        currentTime[1].textContent = minutes + ':' + '0' + seconds
+    } else {
+        currentTime[0].textContent = minutes + ':' + seconds
+        currentTime[1].textContent = minutes + ':' + seconds
+    }
+
+    if (current_duration >= duration) handleSkipSong()
+})
